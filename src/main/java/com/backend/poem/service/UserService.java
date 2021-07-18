@@ -1,57 +1,41 @@
-/*
 package com.backend.poem.service;
 
-import com.backend.poem.model.ChangePasswordModel;
-import com.backend.poem.model.UserInfoModel;
-import com.backend.poem.repository.UserInfoRepo;
+import com.backend.poem.iface.IUserService;
+import com.backend.poem.model.Login;
+import com.backend.poem.model.User;
 
-import java.util.List;
+import com.backend.poem.repository.UserRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Objects;
+
 @Service
-public class UserService {
+public class UserService implements IUserService {
 
-    final
-    UserInfoRepo userInfoRepo;
-    private final ReadPropertyService readPropertyService;
+    private final UserRepo userRepo;
 
-    public UserService(UserInfoRepo userInfoRepo, ReadPropertyService readPropertyService) {
-        this.userInfoRepo = userInfoRepo;
-        this.readPropertyService = readPropertyService;
+    public UserService(UserRepo userRepo) {
+        this.userRepo=userRepo;
     }
 
-    public String createUser(UserInfoModel userInfoModel, List<UserInfoModel> usersList) {
-        if (usersList != null && usersList.size() != 0) {
-            for (UserInfoModel userInfo : usersList) {
-                if (userInfoModel.getUsername().equals(userInfo.getUsername())) {
-                    return readPropertyService.getPropertyValue("1004");
-                }
-            }
+    @Override
+    public Integer add(User user) {
+        List<User> users= userRepo.findAllByUsername(user.getUsername());
+        if (users.size()==0){
+            userRepo.save(user);
+            return 200;
+        }else{
+            return 400;
         }
-        userInfoRepo.save(userInfoModel);
-        return readPropertyService.getPropertyValue("1003");
     }
 
-    public List<UserInfoModel> getUsers() {
-        return userInfoRepo.findAll();
-    }
-
-    public String changePassword(ChangePasswordModel changePassword, List<UserInfoModel> usersList) {
-        for (UserInfoModel userInfoModel : usersList) {
-            if (changePassword.getUsername().equals(userInfoModel.getUsername())
-                && changePassword.getOldPassword().equals(userInfoModel.getPassword())) {
-                userInfoModel.setPassword(changePassword.getNewPassword());
-                updateDatabaseRow(userInfoModel);
-                return readPropertyService.getPropertyValue("1001");
-            }
+    @Override
+    public Integer login(Login login) {
+        User user=userRepo.findAllByUsernameAndPassword(login.getUsername(),login.getPassword());
+        if (Objects.nonNull(user)){
+            return 200;
         }
-        return readPropertyService.getPropertyValue("1002");
-    }
-
-    public void updateDatabaseRow(UserInfoModel userInfoModel){
-        UserInfoModel userInfo = userInfoRepo.getOne(userInfoModel.getId());
-        userInfo.setPassword(userInfo.getPassword());
-        userInfoRepo.save(userInfo);
+        return 400;
     }
 }
-*/

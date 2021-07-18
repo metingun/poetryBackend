@@ -1,10 +1,9 @@
-/*
 package com.backend.poem.controller;
 
-import com.backend.poem.model.ChangePasswordModel;
+import com.backend.poem.iface.IUserService;
+import com.backend.poem.model.Login;
 import com.backend.poem.model.ResponseModel;
-import com.backend.poem.model.UserInfoModel;
-import com.backend.poem.service.UserService;
+import com.backend.poem.model.User;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,40 +13,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/restful/user", produces = "application/json")
 public class UserController {
 
-    private final UserService userService;
+    private final IUserService userService;
 
-    public UserController(UserService userService) {
+    public UserController(IUserService userService) {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResponseModel createUser(@RequestBody UserInfoModel userInfoModel) {
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ResponseModel add(@RequestBody User user) {
         try {
-            return ResponseModel
-                .createSuccessResponseWithData(userService.createUser(userInfoModel, userService.getUsers()), false);
+            return ResponseModel.createSuccessResponseWithData(userService.add(user), false);
         } catch (Exception e) {
             return ResponseModel.createErrorResponseWithErrorMessage(e);
         }
     }
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.POST)
-    public ResponseModel getUsers() {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseModel login(@RequestBody Login login) {
         try {
-            return ResponseModel.createSuccessResponseWithData(userService.getUsers(), false);
-        } catch (Exception e) {
-            return ResponseModel.createErrorResponseWithErrorMessage(e);
-        }
-    }
-
-    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-    public ResponseModel changePassword(@RequestBody ChangePasswordModel changePasswordModel) {
-        try {
-            return ResponseModel.createSuccessResponseWithData(userService.changePassword(changePasswordModel,
-                userService.getUsers()),
-                false);
+            return ResponseModel.createSuccessResponseWithData(userService.login(login), false);
         } catch (Exception e) {
             return ResponseModel.createErrorResponseWithErrorMessage(e);
         }
     }
 }
-*/

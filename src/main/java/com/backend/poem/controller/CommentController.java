@@ -1,5 +1,6 @@
 package com.backend.poem.controller;
 
+import com.backend.poem.iface.ICommentService;
 import com.backend.poem.model.CommentsDTO;
 import com.backend.poem.model.ResponseModel;
 import com.backend.poem.service.CommentService;
@@ -12,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/rest/comment", produces = "application/json")
 public class CommentController {
 
-    private final CommentService commentService;
+    private final ICommentService commentService;
 
-    public CommentController(CommentService commentService) {
+    public CommentController(ICommentService commentService) {
         this.commentService = commentService;
     }
 

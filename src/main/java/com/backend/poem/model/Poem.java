@@ -1,9 +1,14 @@
 package com.backend.poem.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
 public class Poem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,51 +29,6 @@ public class Poem {
     @Column
     private Long categoryId;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPoemDetail() {
-        return poemDetail;
-    }
-
-    public void setPoemDetail(String poemDetail) {
-        this.poemDetail = poemDetail;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getWriter() {
-        return writer;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
+    @Column
+    private Long userId;
 }

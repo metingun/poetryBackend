@@ -1,5 +1,6 @@
 package com.backend.poem.service;
 
+import com.backend.poem.iface.ICommentService;
 import com.backend.poem.model.Comments;
 import com.backend.poem.model.CommentsDTO;
 import com.backend.poem.model.Poem;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class CommentService {
+public class CommentService implements ICommentService {
 
     private final CommentRepo commentRepo;
 
@@ -21,13 +22,15 @@ public class CommentService {
         this.commentRepo = commentRepo;
     }
 
-    public String doComment(CommentsDTO commentsDTO) {
+    @Override
+    public Integer doComment(CommentsDTO commentsDTO) {
         Comments comments=new Comments();
         BeanUtils.copyProperties(commentsDTO,comments);
         commentRepo.save(comments);
-        return "Successful";
+        return 200;
     }
 
+    @Override
     public List<CommentsDTO> getCommentsByPoemId(Long poemId) {
         List<Comments> comments= commentRepo.findAllByPoemId(poemId);
         List<CommentsDTO> commentsDTOS=new ArrayList<>();

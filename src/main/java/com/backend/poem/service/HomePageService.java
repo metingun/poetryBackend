@@ -1,5 +1,6 @@
 package com.backend.poem.service;
 
+import com.backend.poem.iface.IHomePageService;
 import com.backend.poem.model.HomePage;
 import com.backend.poem.model.Poem;
 import com.backend.poem.repository.HomePageRepo;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class HomePageService {
+public class HomePageService implements IHomePageService {
 
     private final HomePageRepo homePageRepo;
 
@@ -17,13 +18,20 @@ public class HomePageService {
         this.homePageRepo = homePageRepo;
     }
 
-    public HomePage getHomePage() {
+    @Override
+    public HomePage get() {
         return homePageRepo.findAll().get(0);
     }
 
-    public String save(HomePage homePage) {
+    @Override
+    public Integer add(HomePage homePage) {
         homePageRepo.save(homePage);
-        return "Successful";
+        return 200;
     }
 
+    @Override
+    public Integer update(HomePage homePage) {
+        homePageRepo.save(homePage);
+        return 200;
+    }
 }
