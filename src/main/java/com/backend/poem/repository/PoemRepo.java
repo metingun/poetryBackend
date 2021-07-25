@@ -17,4 +17,6 @@ public interface PoemRepo extends JpaRepository<Poem, Long> {
     void deleteById(Long id);
 
     List<Poem> getAllByUserId(Long userId);
+
+    List<Poem> getTop10ByUserId(Long userId);
 }

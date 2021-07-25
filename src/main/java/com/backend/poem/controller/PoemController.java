@@ -87,4 +87,14 @@ public class PoemController {
             return ResponseModel.createErrorResponseWithErrorMessage(e);
         }
     }
+
+    @RequestMapping(value = "/getAllByUserIdAndCount/{userId}", method = RequestMethod.GET)
+    public ResponseModel getAllByUserIdAndCount(@PathVariable Long userId) {
+        try {
+            return ResponseModel
+                    .createSuccessResponseWithData(poemService.getAllByUserIdAndCount(userId),false);
+        } catch (Exception e) {
+            return ResponseModel.createErrorResponseWithErrorMessage(e);
+        }
+    }
 }
