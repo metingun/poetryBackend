@@ -4,10 +4,7 @@ import com.backend.poem.iface.ICommentService;
 import com.backend.poem.model.CommentsDTO;
 import com.backend.poem.model.ResponseModel;
 import com.backend.poem.service.CommentService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/rest/comment", produces = "application/json")
@@ -31,11 +28,11 @@ public class CommentController {
     }
 
     // Tüm kategorileri getiren metod
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public ResponseModel getAll() {
+    @RequestMapping(value = "/getAll/{poemId}", method = RequestMethod.GET)
+    public ResponseModel getAll(@PathVariable Long poemId) {
         try {
             return ResponseModel
-                    .createSuccessResponseWithData("",false);
+                    .createSuccessResponseWithData(commentService.getCommentsByPoemId(poemId),false);
         } catch (Exception e) {
             return ResponseModel.createErrorResponseWithErrorMessage(e);
         }
