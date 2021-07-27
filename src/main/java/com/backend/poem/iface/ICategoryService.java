@@ -8,6 +8,8 @@ public interface ICategoryService {
 
     List<Category> getAll();
 
+    List<Category> getById(Long categoryId);
+
     Integer add(Category category);
 
     Integer update(Category category);

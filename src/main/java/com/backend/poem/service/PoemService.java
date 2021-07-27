@@ -1,5 +1,6 @@
 package com.backend.poem.service;
 
+import com.backend.poem.iface.ICategoryService;
 import com.backend.poem.iface.ICommentService;
 import com.backend.poem.iface.IPoemService;
 import com.backend.poem.model.HomePage;
@@ -16,20 +17,26 @@ public class PoemService implements IPoemService {
 
     private final PoemRepo poemRepo;
     private final ICommentService commentService;
+    private final ICategoryService categoryService;
 
-    public PoemService(PoemRepo poemRepo,ICommentService commentService) {
+    public PoemService(PoemRepo poemRepo, ICommentService commentService, ICategoryService categoryService) {
         this.poemRepo = poemRepo;
         this.commentService = commentService;
+        this.categoryService = categoryService;
     }
 
     @Override
     public Integer add(Poem poem) {
+        String link= categoryService.getById(poem.getCategoryId()).get(0).getPictureLink();
+        poem.setPictureLink(link);
         poemRepo.save(poem);
         return 200;
     }
 
     @Override
     public Integer update(Poem poem) {
+        String link= categoryService.getById(poem.getCategoryId()).get(0).getPictureLink();
+        poem.setPictureLink(link);
         poemRepo.save(poem);
         return 200;
     }

@@ -31,4 +31,7 @@ public class Poem {
 
     @Column
     private Long userId;
+
+    @Column(length = 500)
+    private String pictureLink;
 }

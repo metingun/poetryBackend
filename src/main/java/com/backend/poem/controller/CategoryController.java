@@ -56,4 +56,14 @@ public class CategoryController {
             return ResponseModel.createErrorResponseWithErrorMessage(e);
         }
     }
+
+    @RequestMapping(value = "/getById/{categoryId}", method = RequestMethod.GET)
+    public ResponseModel getById(@PathVariable Long categoryId) {
+        try {
+            return ResponseModel
+                    .createSuccessResponseWithData(categoryService.getById(categoryId),false);
+        } catch (Exception e) {
+            return ResponseModel.createErrorResponseWithErrorMessage(e);
+        }
+    }
 }

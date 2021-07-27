@@ -23,6 +23,11 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
+    public List<Category> getById(Long categoryId) {
+        return categoryRepo.getById(categoryId);
+    }
+
+    @Override
     public Integer add(Category category) {
         categoryRepo.save(category);
         return 200;
