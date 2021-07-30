@@ -56,6 +56,16 @@ public class PoemService implements IPoemService {
     public List<Poem> getAllByUserIdAndCount(Long userId) {
         return poemRepo.getTop10ByUserId(userId);
     }
+    @Override
+    public List<Poem> getPoemsBySearchText(String text) {
+        return poemRepo.
+                findByTitleContainingIgnoreCaseOrPoemDetailContainingIgnoreCaseOrWriterContainingIgnoreCase(text,text,text);
+    }
+    @Override
+    public List<Poem> getPoemsBySearchTextAndCategoryId(String text,Long categoryId) {
+        return poemRepo.
+                searchByCategory(text,categoryId);
+    }
 
     @Override
     public List<Poem> getAllByCategoryId(Long categoryId) {

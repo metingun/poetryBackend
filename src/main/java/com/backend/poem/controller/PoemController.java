@@ -97,4 +97,24 @@ public class PoemController {
             return ResponseModel.createErrorResponseWithErrorMessage(e);
         }
     }
+
+    @RequestMapping(value = "/getPoemsBySearchText/{text}", method = RequestMethod.GET)
+    public ResponseModel getPoemsBySearchText(@PathVariable String text) {
+        try {
+            return ResponseModel
+                    .createSuccessResponseWithData(poemService.getPoemsBySearchText(text),false);
+        } catch (Exception e) {
+            return ResponseModel.createErrorResponseWithErrorMessage(e);
+        }
+    }
+
+    @RequestMapping(value = "/getPoemsBySearchTextAndCategoryId/{text}/{categoryId}", method = RequestMethod.GET)
+    public ResponseModel getPoemsBySearchTextAndCategoryId(@PathVariable String text,@PathVariable Long categoryId) {
+        try {
+            return ResponseModel
+                    .createSuccessResponseWithData(poemService.getPoemsBySearchTextAndCategoryId(text,categoryId),false);
+        } catch (Exception e) {
+            return ResponseModel.createErrorResponseWithErrorMessage(e);
+        }
+    }
 }
