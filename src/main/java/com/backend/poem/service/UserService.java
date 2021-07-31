@@ -38,4 +38,13 @@ public class UserService implements IUserService {
         }
         return 400;
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+        User user=userRepo.findByUsername(username);
+        if (Objects.nonNull(user)){
+            return user;
+        }
+        return null;
+    }
 }

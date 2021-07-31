@@ -9,4 +9,6 @@ public interface IUserService {
 
     Integer login(Login login);
 
+    User getUserByUsername(String username);
+
 }
