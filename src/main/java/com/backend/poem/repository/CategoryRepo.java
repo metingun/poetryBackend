@@ -14,4 +14,6 @@ public interface CategoryRepo extends JpaRepository<Category, Long> {
     void deleteById(Long id);
 
     List<Category> getById(Long categoryId);
+
+    List<Category> getByUserId(Long userId);
 }

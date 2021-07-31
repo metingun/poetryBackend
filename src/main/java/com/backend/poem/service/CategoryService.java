@@ -23,6 +23,11 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
+    public List<Category> getAllByUserId(Long userId) {
+        return categoryRepo.getByUserId(userId);
+    }
+
+    @Override
     public List<Category> getById(Long categoryId) {
         return categoryRepo.getById(categoryId);
     }

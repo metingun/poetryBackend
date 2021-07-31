@@ -16,7 +16,11 @@ public interface IPoemService {
 
     List<Poem> getAllByUserId(Long userId);
 
+    List<Poem> getAll();
+
     List<Poem> getAllByUserIdAndCount(Long userId);
+
+    List<Poem> getAllByCount();
 
     List<Poem> getPoemsBySearchText(String text);
 

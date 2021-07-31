@@ -20,12 +20,12 @@ public class UserDetailService implements UserDetailsService {
 
     private final IUserService userService;
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public UserDetailService(IUserService userService,
-                             BCryptPasswordEncoder bCryptPasswordEncoder) {
+                             BCryptPasswordEncoder passwordEncoder) {
         this.userService = userService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class UserDetailService implements UserDetailsService {
         com.backend.poem.model.User user=userService.getUserByUsername(username);
         if (Objects.nonNull(user)){
             if (Objects.nonNull(user.getUsername())&&Objects.nonNull(user.getPassword())){
-                return new User(user.getUsername(),user.getPassword(),new ArrayList<>());
+                return new User(user.getUsername(),passwordEncoder.encode(user.getPassword()),new ArrayList<>());
             }
             else {
                 throw new UsernameNotFoundException(username);

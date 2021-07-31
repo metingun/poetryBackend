@@ -42,11 +42,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().addFilterBefore(corsFilter(), SessionManagementFilter.class)
-                        .authorizeRequests().antMatchers("/restful/user/login").authenticated()
-                        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);;
-        http.headers().frameOptions().disable();
+        http.csrf().disable().addFilterBefore(corsFilter(), SessionManagementFilter.class);
+        // SWAGGER İÇİN KAPATILACAK
+        http.authorizeRequests().antMatchers("/login/**").permitAll()
+                .antMatchers("/rest/category/getAll").permitAll()
+                .antMatchers("/rest/category/getById/**").permitAll()
+                .antMatchers("/rest/comment/**").permitAll()
+                .antMatchers("/rest/homepage/get").permitAll()
+                .antMatchers("/rest/poem/getByCategory/**").permitAll()
+                .antMatchers("/rest/poem/getById/**").permitAll()
+                .antMatchers("/rest/poem/getPoemsBySearchText/**").permitAll()
+                .antMatchers("/rest/poem/getPoemsBySearchTextAndCategoryId/**").permitAll()
+                .antMatchers("/rest/poem/getAllByCount").permitAll()
+                .antMatchers("/rest/poem/getAll").permitAll()
+                .antMatchers("/restful/user/**").permitAll()
+                .anyRequest().authenticated()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.headers().frameOptions().disable();
 
     }
 

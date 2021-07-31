@@ -88,11 +88,31 @@ public class PoemController {
         }
     }
 
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    public ResponseModel getAll() {
+        try {
+            return ResponseModel
+                    .createSuccessResponseWithData(poemService.getAll(),false);
+        } catch (Exception e) {
+            return ResponseModel.createErrorResponseWithErrorMessage(e);
+        }
+    }
+
     @RequestMapping(value = "/getAllByUserIdAndCount/{userId}", method = RequestMethod.GET)
     public ResponseModel getAllByUserIdAndCount(@PathVariable Long userId) {
         try {
             return ResponseModel
                     .createSuccessResponseWithData(poemService.getAllByUserIdAndCount(userId),false);
+        } catch (Exception e) {
+            return ResponseModel.createErrorResponseWithErrorMessage(e);
+        }
+    }
+
+    @RequestMapping(value = "/getAllByCount", method = RequestMethod.GET)
+    public ResponseModel getAllByCount() {
+        try {
+            return ResponseModel
+                    .createSuccessResponseWithData(poemService.getAllByCount(),false);
         } catch (Exception e) {
             return ResponseModel.createErrorResponseWithErrorMessage(e);
         }

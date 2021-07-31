@@ -8,6 +8,8 @@ import com.backend.poem.model.Poem;
 import com.backend.poem.model.PoemDTO;
 import com.backend.poem.repository.PoemRepo;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,8 +55,18 @@ public class PoemService implements IPoemService {
     }
 
     @Override
+    public List<Poem> getAll() {
+        return poemRepo.findAll();
+    }
+
+    @Override
     public List<Poem> getAllByUserIdAndCount(Long userId) {
         return poemRepo.getTop10ByUserId(userId);
+    }
+    @Override
+    public List<Poem> getAllByCount() {
+        Pageable pageable = PageRequest.of(0, 10);
+        return poemRepo.findAllWithPage(pageable);
     }
     @Override
     public List<Poem> getPoemsBySearchText(String text) {

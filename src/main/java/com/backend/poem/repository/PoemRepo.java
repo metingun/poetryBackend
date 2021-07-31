@@ -1,6 +1,7 @@
 package com.backend.poem.repository;
 
 import com.backend.poem.model.Poem;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,6 +22,9 @@ public interface PoemRepo extends JpaRepository<Poem, Long> {
     List<Poem> getAllByUserId(Long userId);
 
     List<Poem> getTop10ByUserId(Long userId);
+
+    @Query("from Poem")
+    List<Poem> findAllWithPage(Pageable pageable);
 
     List<Poem> findByTitleContainingIgnoreCaseOrPoemDetailContainingIgnoreCaseOrWriterContainingIgnoreCase(String a,String b,String c);
 
