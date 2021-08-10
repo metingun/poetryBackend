@@ -128,6 +128,16 @@ public class PoemController {
         }
     }
 
+    @RequestMapping(value = "/getPoemsBySearchTextAndUser/{text}/{userId}", method = RequestMethod.GET)
+    public ResponseModel getPoemsBySearchTextAndUser(@PathVariable String text,@PathVariable Long userId) {
+        try {
+            return ResponseModel
+                    .createSuccessResponseWithData(poemService.getPoemsBySearchTextAndUserId(text,userId),false);
+        } catch (Exception e) {
+            return ResponseModel.createErrorResponseWithErrorMessage(e);
+        }
+    }
+
     @RequestMapping(value = "/getPoemsBySearchTextAndCategoryId/{text}/{categoryId}", method = RequestMethod.GET)
     public ResponseModel getPoemsBySearchTextAndCategoryId(@PathVariable String text,@PathVariable Long categoryId) {
         try {

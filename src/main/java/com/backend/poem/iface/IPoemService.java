@@ -24,6 +24,8 @@ public interface IPoemService {
 
     List<Poem> getPoemsBySearchText(String text);
 
+    List<Poem> getPoemsBySearchTextAndUserId(String text,Long userId);
+
     List<Poem> getPoemsBySearchTextAndCategoryId(String text,Long categoryId);
 
     List<Poem> getAllByCategoryId(Long categoryId);

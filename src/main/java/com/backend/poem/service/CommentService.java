@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,6 +25,7 @@ public class CommentService implements ICommentService {
 
     @Override
     public Integer doComment(CommentsDTO commentsDTO) {
+        commentsDTO.setDate(new Date());
         Comments comments=new Comments();
         BeanUtils.copyProperties(commentsDTO,comments);
         commentRepo.save(comments);
@@ -32,7 +34,7 @@ public class CommentService implements ICommentService {
 
     @Override
     public List<CommentsDTO> getCommentsByPoemId(Long poemId) {
-        List<Comments> comments= commentRepo.findAllByPoemId(poemId);
+        List<Comments> comments= commentRepo.findAllByPoemIdOrderByIdDesc(poemId);
         List<CommentsDTO> commentsDTOS=new ArrayList<>();
         for (Comments comment:comments) {
             CommentsDTO commentsDTO=new CommentsDTO();

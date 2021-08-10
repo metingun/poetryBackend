@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,6 +30,7 @@ public class PoemService implements IPoemService {
 
     @Override
     public Integer add(Poem poem) {
+        poem.setDate(new Date());
         String link= categoryService.getById(poem.getCategoryId()).get(0).getPictureLink();
         poem.setPictureLink(link);
         poemRepo.save(poem);
@@ -72,6 +74,10 @@ public class PoemService implements IPoemService {
     public List<Poem> getPoemsBySearchText(String text) {
         return poemRepo.
                 findByTitleContainingIgnoreCaseOrPoemDetailContainingIgnoreCaseOrWriterContainingIgnoreCase(text,text,text);
+    }
+    @Override
+    public List<Poem> getPoemsBySearchTextAndUserId(String text,Long userId) {
+        return poemRepo.searchByTextAndUserId(text,userId);
     }
     @Override
     public List<Poem> getPoemsBySearchTextAndCategoryId(String text,Long categoryId) {

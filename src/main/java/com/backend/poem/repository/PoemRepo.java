@@ -35,4 +35,8 @@ public interface PoemRepo extends JpaRepository<Poem, Long> {
     @Query("from Poem where (lower(title) like lower(CONCAT('%',:text,'%')) or lower(poemDetail) like " +
             "lower(CONCAT('%',:text,'%')) or lower(writer) like lower(CONCAT('%',:text,'%'))) and categoryId = :categoryId")
     List<Poem> searchByCategory(@Param("text") String text,@Param("categoryId") Long categoryId);
+
+    @Query("from Poem where (lower(title) like lower(CONCAT('%',:text,'%')) or lower(poemDetail) like " +
+            "lower(CONCAT('%',:text,'%')) or lower(writer) like lower(CONCAT('%',:text,'%'))) and userId = :userId")
+    List<Poem> searchByTextAndUserId(@Param("text") String text,@Param("userId") Long userId);
 }
