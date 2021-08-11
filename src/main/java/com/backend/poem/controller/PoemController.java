@@ -1,5 +1,6 @@
 package com.backend.poem.controller;
 
+import com.backend.poem.auth.TokenManager;
 import com.backend.poem.iface.IPoemService;
 import com.backend.poem.model.Poem;
 import com.backend.poem.model.ResponseModel;
@@ -52,6 +53,17 @@ public class PoemController {
         try {
             return ResponseModel
                     .createSuccessResponseWithData(poemService.getAllByCategoryId(categoryId),false);
+        } catch (Exception e) {
+            return ResponseModel.createErrorResponseWithErrorMessage(e);
+        }
+    }
+
+    // Kategoriye ve user a göre şiirleri getiren metod
+    @RequestMapping(value = "/getAllByCategoryIdAndUserId/{categoryId}/{userId}", method = RequestMethod.GET)
+    public ResponseModel getAllByCategoryIdAndUserId(@PathVariable Long categoryId,@PathVariable Long userId) {
+        try {
+            return ResponseModel
+                    .createSuccessResponseWithData(poemService.getAllByCategoryIdAndUserId(categoryId,userId),false);
         } catch (Exception e) {
             return ResponseModel.createErrorResponseWithErrorMessage(e);
         }

@@ -13,6 +13,8 @@ import java.util.List;
 public interface PoemRepo extends JpaRepository<Poem, Long> {
     List<Poem> findAllByCategoryId(Long categoryId);
 
+    List<Poem> findAllByCategoryIdAndUserId(Long categoryId,Long userId);
+
     Poem getById(Long id);
 
     Poem getByIdAndUserId(Long id,Long userId);

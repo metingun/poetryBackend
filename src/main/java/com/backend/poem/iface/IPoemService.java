@@ -30,6 +30,8 @@ public interface IPoemService {
 
     List<Poem> getAllByCategoryId(Long categoryId);
 
+    List<Poem> getAllByCategoryIdAndUserId(Long categoryId,Long userId);
+
     PoemDTO getById(Long poemId);
 
     Poem getByIdAndUserId(Long poemId, Long userId);

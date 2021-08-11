@@ -91,6 +91,11 @@ public class PoemService implements IPoemService {
     }
 
     @Override
+    public List<Poem> getAllByCategoryIdAndUserId(Long categoryId,Long userId) {
+        return poemRepo.findAllByCategoryIdAndUserId(categoryId,userId);
+    }
+
+    @Override
     public PoemDTO getById(Long poemId) {
         Poem poem=poemRepo.getById(poemId);
         PoemDTO poemDTO=new PoemDTO();
